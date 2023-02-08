@@ -18,6 +18,13 @@ def controler_keyboard(name_kb):
         markup.add(b1) 
         markup.add(b2)
         markup.add(b3)
+    if name_kb == 'look': 
+        b1 = types.KeyboardButton('По названию') 
+        b2 = types.KeyboardButton('По актёру')
+        b3 = types.KeyboardButton('Назад')
+        markup.add(b1) 
+        markup.add(b2)
+        markup.add(b3)
     return markup 
  
 @bot.message_handler(commands=['start']) 
@@ -34,5 +41,8 @@ def main_controler(message):
     
     if message.text == 'Популярные фильмы':
         bot.send_message(uid, 'Каким способом вы хотите найти фильм?', reply_markup=controler_keyboard('pf'))
+    
+    if message.text == 'Найти фильм':
+        bot.send_message(uid, 'Как вы хотите найти фильм?', reply_markup=controler_keyboard('look'))
    
 bot.infinity_polling()
