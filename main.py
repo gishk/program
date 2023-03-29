@@ -25,8 +25,24 @@ def controler_keyboard(name_kb):
         markup.add(b1) 
         markup.add(b2)
         markup.add(b3)
+    if name_kb == 'ok': 
+        b1 = types.KeyboardButton('Предполагаемый фильм')
+        b2 = types.KeyboardButton('Назад')
+        markup.add(b1) 
+        markup.add(b2)
+    if name_kb == 'k': 
+        b1 = types.KeyboardButton('Предполагаемый фильм')
+        b2 = types.KeyboardButton('Назад')
+        markup.add(b1) 
+        markup.add(b2)
     return markup 
  
+def act(message):
+    return False
+
+def title(message):
+    return False
+
 @bot.message_handler(commands=['start']) 
 def start(message): 
     uid = message.chat.id 
@@ -41,8 +57,13 @@ def main_controler(message):
     
     if message.text == 'Популярные фильмы':
         bot.send_message(uid, 'Каким способом вы хотите найти фильм?', reply_markup=controler_keyboard('pf'))
-    
     if message.text == 'Найти фильм':
         bot.send_message(uid, 'Как вы хотите найти фильм?', reply_markup=controler_keyboard('look'))
+    if message.text == 'По актёру':
+        bot.send_message(uid, 'Введите текст поиска...')
+        bot.register_next_step_handler(message, act)
+    if message.text == 'По названию':
+        bot.send_message(uid, 'Введите текст поиска...')
+        bot.register_next_step_handler(message, title)
    
 bot.infinity_polling()
